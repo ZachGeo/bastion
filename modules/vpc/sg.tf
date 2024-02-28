@@ -15,12 +15,12 @@ resource "aws_security_group_rule" "allow-ssh-from-anywhere" {
 }
 
 resource "aws_security_group_rule" "allow-all-outbound-traffic" {
-  type = "egress"
-  description = "Allow all outbound traffic"
-  from_port = 0
-  to_port = 0
-  protocol = "-1"
-  cidr_blocks = ["0.0.0.0/0"]
+  type              = "egress"
+  description       = "Allow all outbound traffic"
+  from_port         = 0
+  to_port           = 0
+  protocol          = "-1"
+  cidr_blocks       = ["0.0.0.0/0"]
   security_group_id = aws_security_group.bastion.id
 }
 
