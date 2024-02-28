@@ -6,6 +6,8 @@ module "bastion" {
   availability_zone      = "eu-central-1a" 
   assign_eip             = true
   instance_name          = "Bastion"
+
+  depends_on = [ module.vpc_bastion ]
 }
 
 module "private-ec2" {
@@ -17,7 +19,9 @@ module "private-ec2" {
   assign_key_pair        = true
   key_name               = "private-key" 
   public_key             = file("/home/zachariasg/.ssh/id_ed25519_bastion_aws.pub") 
-  instance_name          = "Private" 
+  instance_name          = "Private"
+
+  depends_on = [ module.vpc_bastion ]
 }
 
 module "vpc_bastion" {
