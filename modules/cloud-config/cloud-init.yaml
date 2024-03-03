@@ -1,0 +1,20 @@
+#cloud-config
+users:
+  - default
+  - name: zachariasg
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    groups: sudo
+    shell: /bin/bash
+    ssh-authorized-keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDHypvDbfawZ+obUzw4khnGuCAC6wC/lPao8cNWWZNVUmKDzK/+thiIAhfjW+aowvp5q4aKOOO0WeBJ/mKCYMgjGDII8o8Ed0qbFV2rP6N02EB3m59apBLKMcWQsfSlyTnajFfh8pgHzC9JP6SiMo1UJwaDxfLDwhmhVr7gsSWTljY9ORPFZRkYpCR7KJ2B33miOWbtpEGsvYaTX3VCwbgNaZtl/bJMshxxW+mDJLuD/gHwNwWL5TwlQMvUK0AjWVfIVzyhYZ03waBMj9rfdEgT7e7VcSXYBwqvxFCgm4AQeQHm1mP8MPD9S7YZgKii0sq5NI/qM1+E2fBQn83XdS6RoIYiVtbLT/DjKcpXQXNk6IDVjAV9bJkiSDGKja23cSLad+EaeF+Q0MIbjLfQ//QTcPpLiNn1Wb1OQd2NDnuTa6/8z4pg3pW0F771YeiFxZ9sh3gnc7+BKZ3H/+ooFOUx4Us4iq5zRw/3eelm+svNtg/Pt3MGb08Y9zn1ho0Sty0= zachageo95@gmail.com
+
+write_files:
+  - path: /etc/ssh/sshd_config
+    content: |
+      ChallengeResponseAuthentication no
+      PasswordAuthentication no
+      PermitRootLogin no
+    append: true
+
+runcmd:
+  - sed -i -e 's/UsePAM\s*yes/UsePAM no/g' /etc/ssh/sshd_config

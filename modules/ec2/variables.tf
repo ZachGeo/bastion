@@ -22,25 +22,13 @@ variable "assign_eip" {
   type        = bool
 }
 
-variable "key_name" {
-  default     = null
-  description = "SSH key name of ec2 instance"
-  type        = string
-}
-
-variable "public_key" {
-  default     = ""
-  description = "Filepath of public key"
-  type        = string
-}
-
 variable "instance_name" {
   description = "EC2 instance name"
   type        = string
 }
 
-variable "assign_key_pair" {
-  default     = false
-  description = "Boolean value to create or not ssh key for ec2 instance"
-  type        = bool
+variable "user_data" {
+  default     = null
+  description = "Specify data that should be passed to the instance at launch time"
+  type        = string
 }

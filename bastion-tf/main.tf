@@ -16,13 +16,11 @@ module "private-ec2" {
   subnet_id              = module.vpc_bastion.private_subnet_id
   vpc_security_group_ids = [module.vpc_bastion.private_security_group_id]
   availability_zone      = "eu-central-1a"
-  assign_key_pair        = true
-  key_name               = "private-key" 
-  public_key             = file("/home/zachariasg/.ssh/id_ed25519_bastion_aws.pub") 
   instance_name          = "Private"
 
   depends_on = [ module.vpc_bastion ]
 }
+
 
 module "vpc_bastion" {
   source = "../modules/vpc"

@@ -7,6 +7,9 @@ data "aws_ami" "ubuntu-jammy" {
     values = [ "ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-20231207" ]
   }
 }
+data "template_file" "user_data" {
+  template = abspath("../cloud-config/cloud-init.yaml")
+}
 
 resource "aws_instance" "ec2" {
   instance_type           = var.instance_type
@@ -14,7 +17,8 @@ resource "aws_instance" "ec2" {
   availability_zone       = var.availability_zone
   vpc_security_group_ids  = var.vpc_security_group_ids
   subnet_id               = var.subnet_id
-  key_name                = var.key_name
+  user_data               = data.template_file.user_data.rendered
+
   tags                    = merge(
     local.common_tags,
     {
